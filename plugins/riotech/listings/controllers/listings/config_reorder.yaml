@@ -1,0 +1,4 @@
+title: Listings
+modelClass: Riotech\Listings\Models\Listing
+toolbar:
+    buttons: reorder_toolbar

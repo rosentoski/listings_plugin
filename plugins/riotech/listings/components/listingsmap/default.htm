@@ -1,0 +1,148 @@
+{% set listings = __SELF__.listings %}
+{% set googleapi = __SELF__.googleapi%}
+
+  <script>
+  var map;
+  var markers = [];
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 43.497, lng: -83.394},
+      zoom: 13
+    });
+
+    var image = {
+      url: ("{{'plugins/riotech/listings/assets/images/house.svg'}}"),
+      size: new google.maps.Size(50, 50),
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+      anchor: new google.maps.Point(25,50),
+      origin: new google.maps.Point(0, 0),
+    };
+
+    var bounds = new google.maps.LatLngBounds();
+
+    {% for listing in listings %}
+    var marker_number = 'marker'+{{loop.index}};
+
+    var address_lat = parseFloat({{listing.lat}});
+    var address_lng = parseFloat({{listing.lng}});
+
+    var address_street = '{{listing.street}} {{listing.city}}';
+    var address_title = '{{ listing.title }}';
+    var address_latlng = {lat:address_lat, lng:address_lng};
+
+    var marker = new google.maps.Marker({
+      position: address_latlng,
+      map: map,
+      title: address_title,
+      icon: image
+
+    });
+
+    marker.addListener('mouseover', function(){
+      $('#marker{{loop.index}}').css('background', 'red');
+    });
+
+    marker.addListener('mouseout', function(){
+      $('#marker{{loop.index}}').css('background', 'transparent');
+    });
+
+    marker.addListener('click', function(){
+      $('#marker{{ loop.index }}').animate({height: '250px'});
+    });
+
+    bounds.extend(address_latlng);
+
+    markers.push(marker);
+
+    {% endfor %}
+
+    map.fitBounds(bounds);
+
+    markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+    google.maps.event.addListener(map, 'idle', function() {
+            showVisibleMarkers();
+        });
+        google.maps.event.addListener(map, 'bounds_changed', function() {
+                showVisibleMarkers();
+            });
+
+  }
+
+  function showVisibleMarkers() {
+    var bounds = map.getBounds(),
+        count = 0;
+
+    for (var i = 0; i < markers.length; i++) {
+        var marker = markers[i],
+            infoPanel = $('#marker' + (i+1) ); // array indexes start at zero, but not our class names :)
+
+        if(bounds.contains(marker.getPosition())===true) {
+            infoPanel.show();
+            count++;
+        }
+        else {
+            infoPanel.hide();
+        }
+    }
+  }
+
+      function checkclusters(){
+        var clusters = markerCluster.getClusters();
+        console.log(clusters);
+      }
+
+      showme = function (index) {
+        checkclusters();
+        if (markers[index].getAnimation() != google.maps.Animation.BOUNCE) {
+          markers[index].setAnimation(google.maps.Animation.BOUNCE);
+        } else {
+          markers[index].setAnimation(null);
+        }
+      }
+
+      hideme = function (index) {
+        markers[index].setAnimation(null);
+      }
+
+  </script>
+  <div id="listingsmap">
+    <div class="ui equal width padded mobile reversed stackable grid ">
+
+      <div class="column">
+        <div class="ui stackable centered cards">
+          {% for listing in listings %}
+          <a class="ui raised card" id="marker{{loop.index}}" onmouseover='delay = setTimeout(function(){ showme({{loop.index}}-1)},500);' onmouseout="hideme({{loop.index}}-1);clearTimeout(delay); " href="{{ 'listing' | page ({slug: listing.slug}) }}">
+            <div class="image">
+              <img src="{{listing.images.first.path}}">
+            </div>
+            <div class="content">
+              <div class="ui header">
+                {{ listing.street }}, {{ listing.city }}
+                <div class="sub header">
+                  {{ listing.beds }} Bed - {{ listing.baths }} Bath - ${{ listing.listing_price | number_format(2) }}
+                </div>
+              </div>
+              <hr>
+              <div class="description">
+                {{ html_limit(listing.description)|raw }}
+              </div>
+            </div>
+
+          </a>
+          {% else %}
+          <div>No Records Found</div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+      <div class="column">
+        <div id="map" style="height:100%"></div>
+      </div>
+
+    </div>
+
+  </div>

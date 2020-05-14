@@ -1,0 +1,10 @@
+name: Listings
+form: $/riotech/listings/models/listing/fields.yaml
+modelClass: Riotech\Listings\Models\Listing
+defaultRedirect: riotech/listings/listings
+create:
+    redirect: 'riotech/listings/listings/update/:id'
+    redirectClose: riotech/listings/listings
+update:
+    redirect: riotech/listings/listings
+    redirectClose: riotech/listings/listings

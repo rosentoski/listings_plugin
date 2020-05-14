@@ -1,0 +1,9 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    googleapi:
+        label: Google API Key
+        disabled: false
+        placeholder : 'xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxx'

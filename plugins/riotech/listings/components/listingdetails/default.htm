@@ -1,0 +1,8 @@
+{% set listing = __SELF__.listing %}
+
+{% for listings in listing %}
+  <h2>{{ listings.title }}</h2>
+  <p>{{ listings.description | raw }}</p>
+{% else %}
+<h2>No Listings found that match your criteria.</h2>
+{% endfor %}

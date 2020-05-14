@@ -1,0 +1,19 @@
+columns:
+    title:
+        label: title
+        type: text
+    street:
+        label: street
+        type: text
+    city:
+        label: city
+        type: text
+    zip:
+        label: zip
+        type: text
+    state:
+        label: state
+        type: text
+    listing_price:
+        label: price
+        type: number

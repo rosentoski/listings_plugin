@@ -1,0 +1,118 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        type: text
+        comment: 'Heading of the listing, this should be concise and creative.'
+    description:
+        label: Description
+        size: ''
+        span: full
+        type: richeditor
+        comment: 'Describe the listing here.'
+tabs:
+    fields:
+        address:
+            label: Address
+            tab: Location
+            type: addressfinder
+            fieldMap:
+                street: street
+                latitude: lat
+                longitude: lng
+                city: city
+                zip: zip
+                country: country
+                state: state
+            span: auto
+        street:
+            label: 'Street #'
+            span: auto
+            type: text
+            tab: Location
+        city:
+            label: City
+            span: auto
+            type: text
+            tab: Location
+        state:
+            label: State
+            span: auto
+            type: text
+            tab: Location
+        zip:
+            label: ZIP
+            span: auto
+            type: text
+            tab: Location
+        country:
+            label: Country
+            span: auto
+            type: text
+            tab: Location
+        lat:
+            label: Latitude
+            span: auto
+            disabled: 0
+            type: number
+            tab: Location
+        lng:
+            label: Longitude
+            span: auto
+            disabled: 0
+            type: number
+            tab: Location
+        lot_length:
+            label: 'Lot Length'
+            span: auto
+            type: number
+            tab: Property
+        lot_width:
+            label: 'Lot Width'
+            span: auto
+            type: number
+            tab: Property
+        acres:
+            label: Acrage
+            span: auto
+            type: number
+            tab: Property
+        beds:
+            label: Bedrooms
+            span: auto
+            type: number
+            tab: 'Living Space'
+        baths:
+            label: Bathrooms
+            span: auto
+            type: number
+            tab: 'Living Space'
+        sqft:
+            label: 'Square Footage'
+            span: auto
+            type: number
+            tab: 'Living Space'
+        images:
+            label: 'Photo Tour'
+            mode: image
+            imageWidth: '300'
+            imageHeight: '200'
+            useCaption: 1
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: Images
+        listing_price:
+            label: 'Listing Price'
+            span: auto
+            type: number
+            comment: 'This is the known listing price to be displayed.'
+            tab: Price
+        selling_price:
+            label: 'Selling Price'
+            span: auto
+            type: number
+            comment: 'Selling price this is not shown to the public.'
+            tab: Price

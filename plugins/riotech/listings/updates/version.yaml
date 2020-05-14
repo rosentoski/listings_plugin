@@ -1,0 +1,23 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table riotech_listings_listings'
+    - builder_table_create_riotech_listings_listings.php
+1.0.3:
+    - 'Updated table riotech_listings_listings'
+    - builder_table_update_riotech_listings_listings.php
+1.0.4:
+    - 'Updated table riotech_listings_listings'
+    - builder_table_update_riotech_listings_listings_2.php
+1.0.5:
+    - 'Updated table riotech_listings_listings'
+    - builder_table_update_riotech_listings_listings_3.php
+1.0.6:
+    - 'Updated table riotech_listings_listings'
+    - builder_table_update_riotech_listings_listings_4.php
+1.0.7:
+    - 'Updated table riotech_listings_listings'
+    - builder_table_update_riotech_listings_listings_5.php
+1.0.8:
+    - 'Updated table riotech_listings_listings'
+    - builder_table_update_riotech_listings_listings_6.php

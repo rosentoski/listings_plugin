@@ -1,0 +1,11 @@
+plugin:
+    name: 'riotech.listings::lang.plugin.name'
+    description: 'riotech.listings::lang.plugin.description'
+    author: RioTech
+    icon: oc-icon-home
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Listings
+        url: riotech/listings/listings
+        icon: icon-home

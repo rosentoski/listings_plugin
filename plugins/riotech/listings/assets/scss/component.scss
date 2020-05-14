@@ -1,0 +1,21 @@
+#listingsmap{
+  @media (max-width: 780px){
+    padding:0em !important;
+    }
+    padding:1em !important;
+  .grid{
+    padding:0 !important;
+
+    .column{
+      height:75vh;
+      &:nth-child(1){
+      @media (max-width: 780px){
+        height: auto !important;
+        overflow-y: auto;
+      }
+        overflow-y: scroll;
+      }
+    }
+
+  }
+}
