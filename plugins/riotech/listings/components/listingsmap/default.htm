@@ -35,21 +35,25 @@
       position: address_latlng,
       map: map,
       title: address_title,
-      icon: image
-
+      icon: image,
     });
 
     marker.addListener('mouseover', function(){
-      $('#marker{{loop.index}}').css('background', 'red');
+      $('#marker{{loop.index}}').addClass('highlighted');
     });
 
     marker.addListener('mouseout', function(){
-      $('#marker{{loop.index}}').css('background', 'transparent');
+      $('#marker{{loop.index}}').removeClass('highlighted');
+    });
+
+    marker.addListener('mousedown', function(){
+      google.maps.event.trigger(this.marker, 'click');
     });
 
     marker.addListener('click', function(){
-      $('#marker{{ loop.index }}').animate({height: '250px'});
-    });
+      $('#marker{{loop.index}}').get(0).scrollIntoView();
+        // window.location.href = "{{ 'listing' | page ({slug: listing.slug}) }}";
+    })
 
     bounds.extend(address_latlng);
 
@@ -63,11 +67,9 @@
 
     google.maps.event.addListener(map, 'idle', function() {
             showVisibleMarkers();
+            removeHighlight();
         });
-        google.maps.event.addListener(map, 'bounds_changed', function() {
-                showVisibleMarkers();
-            });
-
+    setHeight();
   }
 
   function showVisibleMarkers() {
@@ -79,36 +81,52 @@
             infoPanel = $('#marker' + (i+1) ); // array indexes start at zero, but not our class names :)
 
         if(bounds.contains(marker.getPosition())===true) {
-            infoPanel.show();
+            infoPanel.addClass('showing');
+            infoPanel.removeClass('hidden');
             count++;
         }
         else {
-            infoPanel.hide();
+            infoPanel.addClass('hidden');
+            infoPanel.removeClass('showing');
+            count++;
         }
     }
   }
 
-      function checkclusters(){
-        var clusters = markerCluster.getClusters();
-        console.log(clusters);
-      }
+  function checkclusters(){
+    var clusters = markerCluster.getClusters();
+  }
 
-      showme = function (index) {
-        checkclusters();
-        if (markers[index].getAnimation() != google.maps.Animation.BOUNCE) {
-          markers[index].setAnimation(google.maps.Animation.BOUNCE);
-        } else {
-          markers[index].setAnimation(null);
-        }
-      }
+  function removeHighlight(){
+    $('.highlighted').each(function(){
+      $(this).removeClass('highlighted');
+    });
+  }
 
-      hideme = function (index) {
-        markers[index].setAnimation(null);
-      }
+  showme = function (index) {
+    if (markers[index].getAnimation() != google.maps.Animation.BOUNCE) {
+      markers[index].setAnimation(google.maps.Animation.BOUNCE);
+    } else {
+      markers[index].setAnimation(null);
+    }
+  }
+
+  hideme = function (index) {
+    markers[index].setAnimation(null);
+  }
+
+  function setHeight(){
+    var winHeight = $(window).outerHeight();
+    var headerHeight = $('#layout-header').outerHeight();
+    var footerHeight = $('#layout-footer').outerHeight();
+    var setHeight = winHeight - (headerHeight + footerHeight );
+
+    $('#listingsmap > .grid > .column').outerHeight(setHeight);
+  }
 
   </script>
   <div id="listingsmap">
-    <div class="ui equal width padded mobile reversed stackable grid ">
+    <div class="ui equal width middle aligned padded mobile reversed stackable grid ">
 
       <div class="column">
         <div class="ui stackable centered cards">
