@@ -1,8 +1,95 @@
 {% set listing = __SELF__.listing %}
+<script>
+function initMap() {
+  map = new google.maps.Map(document.getElementClassName('.details-map'), {
+    center: {lat: 43.497, lng: -83.394},
+    zoom: 13
+  });
+}
+</script>
+<div id="listing-details">
+  {% for listings in listing %}
+  <div class="ui two column stackable padded grid">
+    <div class="column">
 
-{% for listings in listing %}
-  <h2>{{ listings.title }}</h2>
-  <p>{{ listings.description | raw }}</p>
-{% else %}
-<h2>No Listings found that match your criteria.</h2>
-{% endfor %}
+      <div class="swiper-container gallery-top">
+        <div class="swiper-wrapper">
+        {% for image in listings.images %}
+          <div class="swiper-slide">
+            <img src="{{image.path}}" class="ui fluid image" alt="A picture of {{listing.title}}">
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="swiper-button-next swiper-button-white"></div>
+    <div class="swiper-button-prev swiper-button-white"></div>
+
+    <div class="swiper-container gallery-thumbs">
+      <div class="swiper-wrapper">
+      {% for image in listings.images %}
+        <div class="swiper-slide">
+          <img src="{{image.path}}" class="ui fluid image" alt="A picture of {{listing.title}}">
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="column">
+
+    <h2 class="ui huge header">{{ listings.title }}
+      <div class="sub header">
+        {{ listings.street }}, {{ listings.city }}
+      </div>
+    </h2>
+    <div class="ui padded equal width stackable grid">
+      <div class="column">
+        <div class="ui header">
+          <i class="money bill alternate outline icon"></i>
+          <div class="content">
+            ${{ listings.listing_price | number_format(2) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="ui header">
+          <i class="bed icon"></i>
+          <div class="content">
+            {{ listings.beds }} bdrs.
+
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="ui header">
+          <i class="bath icon"></i>
+          <div class="content">
+            {{ listings.baths }} baths
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="ui header">
+          <i class="square plus outline icon"></i>
+          <div class="content">
+            {{ listings.sqft | number_format(0) }}sqft +/-
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p>{{ listings.description | raw }}</p>
+    {% else %}
+    <span>No Listings found that match your criteria.</span>
+    {% endfor %}
+    <div class="details-map"></div>
+
+  </div>
+
+</div>

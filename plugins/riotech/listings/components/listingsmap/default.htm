@@ -4,11 +4,10 @@
   <script>
   var map;
   var markers = [];
+  var scrollIndexArray = [];
 
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 43.497, lng: -83.394},
-      zoom: 13
     });
 
     var image = {
@@ -50,10 +49,21 @@
       google.maps.event.trigger(this.marker, 'click');
     });
 
+
+    var scrollindex = $('#marker{{loop.index}}').offset().top - $('#marker{{loop.index}}').offsetParent().offset().top;
+    scrollIndexArray.push(scrollindex);
+
+
     marker.addListener('click', function(){
-      $('#marker{{loop.index}}').get(0).scrollIntoView();
-        // window.location.href = "{{ 'listing' | page ({slug: listing.slug}) }}";
-    })
+      var index = '{{ loop.index }}';
+
+      $('#list-column').animate({
+        scrollTop: scrollIndexArray[index-1] - 5
+
+      },500);
+
+    //
+  });
 
     bounds.extend(address_latlng);
 
@@ -63,7 +73,7 @@
 
     map.fitBounds(bounds);
 
-    markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    // markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
     google.maps.event.addListener(map, 'idle', function() {
             showVisibleMarkers();
@@ -128,19 +138,23 @@
   <div id="listingsmap">
     <div class="ui equal width middle aligned padded mobile reversed stackable grid ">
 
-      <div class="column">
-        <div class="ui stackable centered cards">
+      <div id='list-column' class="column">
+        <div class="ui stackable doubling centered cards">
           {% for listing in listings %}
-          <a class="ui raised card" id="marker{{loop.index}}" onmouseover='delay = setTimeout(function(){ showme({{loop.index}}-1)},500);' onmouseout="hideme({{loop.index}}-1);clearTimeout(delay); " href="{{ 'listing' | page ({slug: listing.slug}) }}">
+          <a target="_blank" class="ui raised card" id="marker{{loop.index}}" onmouseover='delay = setTimeout(function(){ showme({{loop.index}}-1)},500);' onmouseout="hideme({{loop.index}}-1);clearTimeout(delay); " href="{{ 'listing' | page ({slug: listing.slug}) }}">
             <div class="image">
-              <img src="{{listing.images.first.path}}">
+              <img class="ui fluid image" src="{{listing.images.first.path}}">
             </div>
             <div class="content">
               <div class="ui header">
-                {{ listing.street }}, {{ listing.city }}
+                {{ listing.street }}
                 <div class="sub header">
-                  {{ listing.beds }} Bed - {{ listing.baths }} Bath - ${{ listing.listing_price | number_format(2) }}
+                  {{ listing.city }}, {{ listing.state }}
                 </div>
+              </div>
+              <div class="ui tiny header">
+                {{ listing.beds }} Bed - {{ listing.baths }} Bath - ${{ listing.listing_price | number_format(2) }}
+
               </div>
               <hr>
               <div class="description">
