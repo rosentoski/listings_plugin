@@ -4,6 +4,11 @@ fields:
         span: auto
         type: text
         comment: 'Heading of the listing, this should be concise and creative.'
+    active:
+        label: Active
+        span: auto
+        type: switch
+        comment: 'Only active listings show.'
     description:
         label: Description
         size: ''
@@ -116,3 +121,37 @@ tabs:
             type: number
             comment: 'Selling price this is not shown to the public.'
             tab: Price
+        featured:
+            label: 'Featured Listing'
+            span: auto
+            type: switch
+            comment: 'Turning this on will add the listing to the featured listing slider.'
+            tab: 'Featured/Open House'
+        open_house:
+            label: 'Open House'
+            span: left
+            type: switch
+            comment: 'Turning this on will add it to the featured listings slider and add open house info below.'
+            tab: 'Featured/Open House'
+
+        open_house_start_time:
+            label: 'Open House Start Date and Time'
+            mode: datetime
+            span: left
+            type: datepicker
+            tab: 'Featured/Open House'
+            trigger:
+              action: disable
+              field: open_house
+              condition: unchecked
+
+        open_house_stop_time:
+            label: 'Open House Stop Date and Time'
+            mode: datetime
+            span: left
+            type: datepicker
+            tab: 'Featured/Open House'
+            trigger:
+              action: disable
+              field: open_house
+              condition: unchecked

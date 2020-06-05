@@ -8,7 +8,8 @@ class Plugin extends PluginBase
     {
       return [
         'Riotech\Listings\Components\ListingsMap' => 'ListingsMap',
-        'Riotech\Listings\Components\Listingdetails' => 'ListingsDetails'
+        'Riotech\Listings\Components\Listingdetails' => 'ListingsDetails',
+        'Riotech\Listings\Components\Listingsslider' => 'ListingsSlider'
       ];
     }
 

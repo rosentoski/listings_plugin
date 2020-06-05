@@ -30,7 +30,7 @@ class Listing extends Model
     public $rules = [
     ];
 
-    protected $slugs = ['slug' => ['street', 'city', 'zip' ]];
+    protected $slugs = ['slug' => ['id','street', 'city', 'zip' ]];
 
     public $attachMany = [
       'images' => 'System\Models\File'

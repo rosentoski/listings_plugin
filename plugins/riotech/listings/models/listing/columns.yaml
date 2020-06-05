@@ -2,18 +2,35 @@ columns:
     title:
         label: title
         type: text
+        searchable: true
+        sortable: true
     street:
         label: street
         type: text
+        searchable: true
+        sortable: true
     city:
         label: city
         type: text
+        searchable: true
+        sortable: true
     zip:
         label: zip
         type: text
+        searchable: true
+        sortable: true
     state:
         label: state
         type: text
+        searchable: true
+        sortable: true
     listing_price:
         label: price
         type: number
+        searchable: true
+        sortable: true
+    active:
+        label: active
+        type: switch
+        searchable: true
+        sortable: true

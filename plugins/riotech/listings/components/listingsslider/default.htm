@@ -1,0 +1,45 @@
+{% set featuredlistings = __SELF__.featuredlistings %}
+
+<div id="featured-listings" class="swiper-container">
+  <div class="swiper-wrapper">
+    {% for listing in featuredlistings %}
+    <div class="swiper-slide">
+      <a href="{{ 'listing' | page ({slug: listing.slug}) }}">
+      <div class="image">
+        <img src="{{listing.images.first.path}}" alt="{{ listing.title }}" class="ui image">
+        {% if listing.open_house == 1 %}
+        <div class="open-house-info">
+          <div class="ui inverted header">
+            <i class="calendar alternate icon"></i>
+            <div class="content">
+              Open House!
+              <div class="ui sub header">
+              {{ listing.open_house_start_time is empty ? "" : listing.open_house_start_time|date('l, F dS g:ia') }} - {{ listing.open_house_start_time is empty ? "" : listing.open_house_stop_time |date('g:ia') }}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="info">
+          <div class="ui medium inverted header">
+            {{ listing.street }}, {{ listing.city }}
+            <div class="ui inverted divider"></div>
+            <div class="ui sub header">
+              Beds:&nbsp; {{ listing.beds }} &nbsp;&nbsp;  Baths:&nbsp; {{ listing.baths }} &nbsp;&nbsp;  Sqft:&nbsp; {{ listing.sqft | number_format }}+/-
+            </div>
+            <span>${{ listing.listing_price | number_format}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </a>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<div class="swiper-button-next swiper-button-white"></div>
+<div class="swiper-button-prev swiper-button-white"></div>

@@ -21,7 +21,18 @@ var galleryTop = new Swiper('.gallery-top', {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
   },
+  loop: true,
   thumbs: {
     swiper: galleryThumbs
   }
+});
+
+var featuredListings = new Swiper('#featured-listings', {
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  loop: true,
+  slidesPerView: 4,
+
 });

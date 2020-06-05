@@ -39,11 +39,25 @@ function initMap() {
 
   <div class="column">
 
-    <h2 class="ui huge header">{{ listings.title }}
+    <h2 class="ui huge header">
+      {{ listings.title }}
       <div class="sub header">
         {{ listings.street }}, {{ listings.city }}
       </div>
     </h2>
+    {% if listings.open_house == 1 %}
+    <div class="open-house-info">
+      <div class="ui header">
+        <i class="calendar alternate icon"></i>
+        <div class="content">
+          Open House!
+          <div class="ui sub header">
+          {{ listings.open_house_start_time is empty ? "" : listings.open_house_start_time|date('l, F dS g:ia') }} - {{ listings.open_house_start_time is empty ? "" : listings.open_house_stop_time |date('g:ia') }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
     <div class="ui padded equal width stackable grid">
       <div class="column">
         <div class="ui header">
@@ -58,7 +72,7 @@ function initMap() {
         <div class="ui header">
           <i class="bed icon"></i>
           <div class="content">
-            {{ listings.beds }} bdrs.
+            {{ listings.beds }} Beds
 
           </div>
         </div>
@@ -68,7 +82,7 @@ function initMap() {
         <div class="ui header">
           <i class="bath icon"></i>
           <div class="content">
-            {{ listings.baths }} baths
+            {{ listings.baths }} Baths
           </div>
         </div>
       </div>

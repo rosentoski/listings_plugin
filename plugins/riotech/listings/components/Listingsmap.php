@@ -15,7 +15,7 @@ class listingsmap extends ComponentBase
   }
 
   public function onRun(){
-    $this->listings = Listing::all();
+    $this->listings = Listing::where('active', 1)->get();
     $this->googleapi = Settings::get('googleapi');
     $this->addCss('//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css');
     $this->addCss(['assets/scss/listingsmap.scss']);
