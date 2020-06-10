@@ -36,6 +36,7 @@ class Listingdetails extends ComponentBase
     }
 
     public $listing;
+    public $googleapi;
 
 
 }

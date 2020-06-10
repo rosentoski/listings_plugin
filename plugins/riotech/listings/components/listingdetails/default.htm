@@ -1,12 +1,36 @@
 {% set listing = __SELF__.listing %}
+{% for listings in listing %}
 <script>
-function initMap() {
-  map = new google.maps.Map(document.getElementClassName('.details-map'), {
-    center: {lat: 43.497, lng: -83.394},
-    zoom: 13
-  });
+
+  function initMap() {
+    var address_lat = parseFloat({{listings.lat}});
+    var address_lng = parseFloat({{listings.lng}});
+
+    var address_street = '{{listings.street}} {{listings.city}}';
+    var address_title = '{{ listings.title }}';
+    var address_latlng = {lat:address_lat, lng:address_lng};
+
+    var image = {
+      url: ("{{'/plugins/riotech/listings/assets/images/house.svg'}}"),
+      size: new google.maps.Size(50, 50),
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+      anchor: new google.maps.Point(25,50),
+      origin: new google.maps.Point(0, 0),
+    };
+    detailsMap = new google.maps.Map(document.getElementById('details-map'), {
+      center: address_latlng,
+      zoom: 15
+    });
+    var marker = new google.maps.Marker({
+      position: address_latlng,
+      map: detailsMap,
+      icon: image,
+
+    });
+
 }
 </script>
+{% endfor %}
 <div id="listing-details">
   {% for listings in listing %}
   <div class="ui two column stackable padded grid">
@@ -38,71 +62,93 @@ function initMap() {
   </div>
 
   <div class="column">
+    <div class="ui equal width padded middle aligned centered vertically divided grid">
+        <div class="stackable row">
+          <div class="column">
+            <h2 class="ui huge header">
+              {{ listings.title }}
+              <div class="sub header">
+                {{ listings.street }}, {{ listings.city }}
+              </div>
+            </h2>
+          </div>
 
-    <h2 class="ui huge header">
-      {{ listings.title }}
-      <div class="sub header">
-        {{ listings.street }}, {{ listings.city }}
-      </div>
-    </h2>
-    {% if listings.open_house == 1 %}
-    <div class="open-house-info">
-      <div class="ui header">
-        <i class="calendar alternate icon"></i>
-        <div class="content">
-          Open House!
-          <div class="ui sub header">
-          {{ listings.open_house_start_time is empty ? "" : listings.open_house_start_time|date('l, F dS g:ia') }} - {{ listings.open_house_start_time is empty ? "" : listings.open_house_stop_time |date('g:ia') }}
+          <div class="right floated column">
+            {% if listings.open_house == 1 %}
+            <div class="ui header">
+              <i class="calendar alternate icon"></i>
+              <div class="content">
+                Open House!
+                <div class="ui sub header">
+                  {{ listings.open_house_start_time is empty ? "" : listings.open_house_start_time|date('l, F dS g:ia') }} - {{ listings.open_house_start_time is empty ? "" : listings.open_house_stop_time |date('g:ia') }}
+                </div>
+              </div>
+            </div>
+
+            {% endif %}
+          </div>
+
+        </div>
+
+
+        <div class="equal width stackable row">
+          <div class="column">
+            <div class="ui header">
+              <i class="money bill alternate outline icon"></i>
+              <div class="content">
+                ${{ listings.listing_price | number_format(2) }}
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="ui header">
+              <i class="bed icon"></i>
+              <div class="content">
+                {{ listings.beds }} Beds
+
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="ui header">
+              <i class="bath icon"></i>
+              <div class="content">
+                {{ listings.baths }} Baths
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="ui header">
+              <i class="square plus outline icon"></i>
+              <div class="content">
+                {{ listings.sqft | number_format(0) }}sqft +/-
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+
+        <div class="doubling stackable equal width row">
+          <div class="column">
+            <p>{{ listings.description | raw | striptags }}</p>
+            {% else %}
+            <span>No Listings found that match your criteria.</span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <div id="details-map"></div>
+          </div>
+
+        </div>
+
+
     </div>
-    {% endif %}
-    <div class="ui padded equal width stackable grid">
-      <div class="column">
-        <div class="ui header">
-          <i class="money bill alternate outline icon"></i>
-          <div class="content">
-            ${{ listings.listing_price | number_format(2) }}
-          </div>
-        </div>
-      </div>
 
-      <div class="column">
-        <div class="ui header">
-          <i class="bed icon"></i>
-          <div class="content">
-            {{ listings.beds }} Beds
-
-          </div>
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="ui header">
-          <i class="bath icon"></i>
-          <div class="content">
-            {{ listings.baths }} Baths
-          </div>
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="ui header">
-          <i class="square plus outline icon"></i>
-          <div class="content">
-            {{ listings.sqft | number_format(0) }}sqft +/-
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <p>{{ listings.description | raw }}</p>
-    {% else %}
-    <span>No Listings found that match your criteria.</span>
-    {% endfor %}
-    <div class="details-map"></div>
 
   </div>
 

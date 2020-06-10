@@ -1,9 +1,6 @@
 #listing-details{
-  &>.grid{
-    height:100%;
-    .column{
-      height:100%;
-    }
+  .row:nth-child(n+2){
+    padding:0;
   }
   .swiper-container {
     width: 100%;
@@ -43,6 +40,9 @@
   }
   span{
     padding-right: 2em;
+  }
+  #details-map{
+    height: 250px;
   }
 
 }
