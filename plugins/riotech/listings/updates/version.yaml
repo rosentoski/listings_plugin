@@ -33,3 +33,6 @@
 1.0.12:
     - 'Updated table riotech_listings_listings'
     - builder_table_update_riotech_listings_listings_10.php
+1.0.13:
+    - 'Updated table riotech_listings_listings'
+    - builder_table_update_riotech_listings_listings_11.php

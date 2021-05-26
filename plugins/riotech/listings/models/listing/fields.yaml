@@ -97,6 +97,25 @@ tabs:
             span: auto
             type: number
             tab: 'Living Space'
+        home_type:
+            label: 'Home Type'
+            options:
+                'Single Family': 'Single Family'
+                Condo: Condo
+                Townhouse: Townhouse
+                'Multi Family': 'Multi Family'
+                Apartment: Apartment
+                Mobile: Mobile
+                Manufactured: Manufactured
+                'Coop Unit': 'Coop Unit'
+                'Vacant Land': 'Vacant Land'
+                Other: Other
+            showSearch: true
+            span: auto
+            placeholder: 'Single Family'
+            default: 'Single Family'
+            type: dropdown
+            tab: 'Living Space'
         images:
             label: 'Photo Tour'
             mode: image
@@ -133,7 +152,6 @@ tabs:
             type: switch
             comment: 'Turning this on will add it to the featured listings slider and add open house info below.'
             tab: 'Featured/Open House'
-
         open_house_start_time:
             label: 'Open House Start Date and Time'
             mode: datetime
@@ -141,10 +159,9 @@ tabs:
             type: datepicker
             tab: 'Featured/Open House'
             trigger:
-              action: disable
-              field: open_house
-              condition: unchecked
-
+                action: disable
+                field: open_house
+                condition: unchecked
         open_house_stop_time:
             label: 'Open House Stop Date and Time'
             mode: datetime
@@ -152,6 +169,6 @@ tabs:
             type: datepicker
             tab: 'Featured/Open House'
             trigger:
-              action: disable
-              field: open_house
-              condition: unchecked
+                action: disable
+                field: open_house
+                condition: unchecked

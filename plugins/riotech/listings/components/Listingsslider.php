@@ -24,8 +24,8 @@ class Listingsslider extends ComponentBase
       $this->googleapi = Settings::get('googleapi');
       $this->addCss('//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css');
       $this->addJs('//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js');
-      $this->addCss('//unpkg.com/swiper/css/swiper.min.css');
-      $this->addJs('//unpkg.com/swiper/js/swiper.min.js');
+      $this->addCss('//unpkg.com/swiper/swiper-bundle.min.css');
+      $this->addJs('//unpkg.com/swiper/swiper-bundle.min.js');
       $this->addCss(['assets/scss/listingsslider.scss']);
       $this->addJs(['assets/js/component.js']);
     }

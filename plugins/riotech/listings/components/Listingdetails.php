@@ -22,11 +22,11 @@ class Listingdetails extends ComponentBase
       $this->listing = $this->loadListing();
       $this->googleapi = Settings::get('googleapi');
       $this->addCss('//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css');
-      $this->addCss('//unpkg.com/swiper/css/swiper.min.css');
       $this->addCss(['assets/scss/listingdetails.scss']);
       $this->addJs('//maps.googleapis.com/maps/api/js?key='.$this->googleapi.'&callback=initMap');
       $this->addJs('//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js');
-      $this->addJs('//unpkg.com/swiper/js/swiper.min.js');
+      $this->addCss('//unpkg.com/swiper/swiper-bundle.min.css');
+      $this->addJs('//unpkg.com/swiper/swiper-bundle.min.js');
       $this->addJs(['assets/js/component.js']);
     }
 
